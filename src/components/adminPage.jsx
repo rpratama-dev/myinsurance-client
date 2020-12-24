@@ -101,6 +101,20 @@ export default function AdminPage() {
     setEdit(true);
   };
 
+  const handleDelete = (id) => {
+    (async () => {
+      dispatch(
+        callServerV2({
+          url: 'occupation/' + id,
+          stage: 'deleteOccupation',
+          method: 'DELETE',
+          headers: true,
+          type: 'DELETE_OCCUPATION',
+        }),
+      );
+    })();
+  };
+
   const handleReset = () => {
     setPayload({
       type: '',
@@ -202,8 +216,15 @@ export default function AdminPage() {
                       <span>
                         <button
                           onClick={() => handleEdit(el._id)}
-                          className="focus:outline-none no-underline hover:underline ...">
+                          className="focus:outline-none mx-2 no-underline hover:underline ...">
                           Edit
+                        </button>
+                      </span>
+                      <span>
+                        <button
+                          onClick={() => handleDelete(el._id)}
+                          className="focus:outline-none mx-2 no-underline hover:underline ...">
+                          Delete
                         </button>
                       </span>
                     </td>

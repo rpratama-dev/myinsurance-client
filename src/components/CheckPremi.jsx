@@ -23,8 +23,10 @@ export default function Table() {
   const getOccupation = (occupation) => {
     if (occupation === 'rumah') {
       return 'Rumah Tinggal Bukan Ruko';
-    } else {
+    } else if (occupation === 'ruko') {
       return 'Ruko Bukan Rumah Tinggal';
+    } else {
+      return `${occupation[0].toUpperCase()}${occupation.slice(1)} Bukan Rumah Tinggal`;
     }
   };
 

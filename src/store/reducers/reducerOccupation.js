@@ -4,6 +4,7 @@ const INIT = {
   loading: false,
   error: null,
   stage: null,
+  message: null,
 };
 
 export default function reducer(state = INIT, action) {
@@ -17,7 +18,10 @@ export default function reducer(state = INIT, action) {
       };
     case 'SET_OCCUPATION':
       return { ...state, occupation: action.payload.occupation, error: null, stage: action.stage };
+    case 'DELETE_OCCUPATION':
+      return { ...state, message: action.payload.response, error: null, stage: action.stage };
     case 'SET_OCCUPATIONS_LOADING':
+    case 'DELETE_OCCUPATION_LOADING':
     case 'SET_OCCUPATION_LOADING': {
       const newStateLoading = {
         ...state,
@@ -29,6 +33,7 @@ export default function reducer(state = INIT, action) {
       return newStateLoading;
     }
     case 'SET_OCCUPATIONS_ERROR':
+    case 'DELETE_OCCUPATION_ERROR':
     case 'SET_OCCUPATION_ERROR': {
       const newStateError = {
         ...state,
