@@ -13,7 +13,7 @@ export default function LabelDetail(props) {
         </p>
       </div>
       <p>
-        <span className="mx-2 py-1">{value}</span>
+        <span className="mx-2 py-3">{value}</span>
       </p>
     </div>
   );
