@@ -11,7 +11,7 @@ export default function reducer(state = INIT, action) {
     case 'SET_USERS':
       return { ...state, users: action.payload, error: null, stage: action.stage };
     case 'SET_USER':
-      return { ...state, user: action.payload, error: null, stage: action.stage };
+      return { ...state, user: action.payload.user, error: null, stage: action.stage };
     case 'SET_USERS_LOADING':
     case 'SET_USER_LOADING': {
       const newStateLoading = {
