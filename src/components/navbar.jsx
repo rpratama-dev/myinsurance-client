@@ -56,17 +56,33 @@ export default function Navbar() {
                     className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                     Home
                   </NavLink>
-
-                  <NavLink
-                    to="/polis/request"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                    Request Polis
-                  </NavLink>
-                  <NavLink
-                    to="/polis/my-request"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                    My Request
-                  </NavLink>
+                  {localStorage.getItem('role') === 'Customer' ? (
+                    <>
+                      <NavLink
+                        to="/polis/request"
+                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                        Request Polis
+                      </NavLink>
+                      <NavLink
+                        to="/polis/my-request"
+                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                        My Request
+                      </NavLink>
+                    </>
+                  ) : (
+                    <>
+                      <NavLink
+                        to="/polis"
+                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                        Polis
+                      </NavLink>
+                      {/* <NavLink
+                        to="/polis/my-request"
+                        className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                        My Request
+                      </NavLink> */}
+                    </>
+                  )}
                 </div>
               </div>
             </div>
@@ -212,18 +228,35 @@ export default function Navbar() {
               className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
               Home
             </NavLink>
+            {localStorage.getItem('role') === 'Customer' ? (
+              <>
+                <NavLink
+                  to="/polis/request"
+                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                  Request Polis
+                </NavLink>
 
-            <NavLink
-              to="/polis/request"
-              className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-              Request Polis
-            </NavLink>
+                <NavLink
+                  to="/polis/my-request"
+                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                  My Request
+                </NavLink>
+              </>
+            ) : (
+              <>
+                <NavLink
+                  to="/polis"
+                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                  Polis
+                </NavLink>
 
-            <NavLink
-              to="/polis/my-request"
-              className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-              My Request
-            </NavLink>
+                {/* <NavLink
+                  to="/polis/my-request"
+                  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                  My Request
+                </NavLink> */}
+              </>
+            )}
           </div>
 
           <div className="pt-4 pb-3 border-t border-gray-700">

@@ -8,7 +8,7 @@ import PageDetail from './pages/PageDetail';
 import PageHome from './pages/PageHome';
 import FormRequest from './components/formRequest';
 import Table from './components/table';
-import MyRequest from './components/myRequest';
+import PagePolis from './pages/PagePolis';
 // import PageNotFound from './pages/404';
 
 const getIsLoggedIn = () => {
@@ -17,13 +17,22 @@ const getIsLoggedIn = () => {
 };
 
 const requireLogin = (to, from, next) => {
-  // console.log(to.match.path, 'to router guard');
+  console.log(to.match.path, 'to router guard');
   if (to.meta.auth) {
     if (to.match.path === '/login' && getIsLoggedIn()) {
       next.redirect('/');
     } else {
       if (getIsLoggedIn()) {
-        next();
+        if (localStorage.getItem('role') === 'Admin' && to.match.path === '/polis/request') {
+          next.redirect('/polis');
+        } else if (
+          localStorage.getItem('role') === 'Admin' &&
+          to.match.path === '/polis/my-request'
+        ) {
+          next.redirect('/polis');
+        } else {
+          next();
+        }
       }
       next.redirect('/login');
     }
@@ -41,8 +50,8 @@ function App() {
           {/* <GuardedRoute path="/" exact component={PageHome} meta={{ auth: true }} /> */}
           <GuardedRoute path="/polis/request" component={FormRequest} meta={{ auth: true }} />
           <GuardedRoute path="/polis/check" component={Table} meta={{ auth: true }} />
-          <GuardedRoute path="/polis/my-request" component={MyRequest} meta={{ auth: true }} />
           <GuardedRoute path="/polis/:id" component={PageDetail} meta={{ auth: true }} />
+          <GuardedRoute path="/polis" exact component={PagePolis} meta={{ auth: true }} />
           <GuardedRoute path="/login" exact component={PageLogin} meta={{ auth: true }} />
           <GuardedRoute path="/" exact component={PageHome} meta={{ auth: true }} />
           {/* <GuardedRoute path="*" component={PageNotFound} meta={{ auth: false }} /> */}

@@ -23,9 +23,9 @@ export default function reducer(state = INIT, action) {
         ...state,
         loading: action.payload,
       };
-      newStateLoading.occupations = action.type === 'SET_OCCUPATIONS' && action.payload && null;
-      newStateLoading.occupation = action.type === 'SET_OCCUPATION' && action.payload && null;
-      newStateLoading.error = action.payload && null;
+      // newStateLoading.occupations = action.type === 'SET_OCCUPATIONS' && action.payload && null;
+      // newStateLoading.occupation = action.type === 'SET_OCCUPATION' && action.payload && null;
+      // newStateLoading.error = action.payload && null;
       return newStateLoading;
     }
     case 'SET_OCCUPATIONS_ERROR':
@@ -36,8 +36,8 @@ export default function reducer(state = INIT, action) {
         error: action.payload,
       };
 
-      newStateError.occupations = action.type === 'SET_OCCUPATIONS' && null;
-      newStateError.occupation = action.type === 'SET_OCCUPATION' && null;
+      // newStateError.occupations = action.type === 'SET_OCCUPATIONS' && null;
+      // newStateError.occupation = action.type === 'SET_OCCUPATION' && null;
       return newStateError;
     }
     default:

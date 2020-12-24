@@ -14,6 +14,7 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     prosesLogin(payload);
+    console.log('payload LOGIN', payload);
   };
 
   useEffect(() => {

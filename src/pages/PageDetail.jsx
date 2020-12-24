@@ -108,7 +108,7 @@ export default function PageDetail() {
           </div>
           <div className="border-t mt-6 pt-3">
             <button
-              onClick={() => hanldeClick('/')}
+              onClick={() => hanldeClick('/polis')}
               disabled={loading}
               className="rounded ml-3 text-gray-100 px-3 py-1 bg-gray-500 hover:shadow-inner focus:outline-none hover:bg-gray-700 transition-all duration-300">
               <span>Back</span>

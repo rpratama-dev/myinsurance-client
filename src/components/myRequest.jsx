@@ -55,7 +55,7 @@ export default function MyRequest() {
                 {myRequest.length < 1 ? (
                   <tr>
                     <td
-                      colSpan="4"
+                      colSpan="5"
                       className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-500">
                       No History
                     </td>
