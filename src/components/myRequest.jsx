@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import callServerV2 from '../helpers/callServer.v2';
 
 export default function MyRequest() {
   const tableHead = ['Nomor Polis', 'Jenis Penanggungan', 'Nomor Invoice', 'Status', ''];
   const dispatch = useDispatch();
   const [myRequest, setMyRequest] = useState([]);
-  // const history = useHistory();
+  const history = useHistory();
   // console.log(history);
   useEffect(() => {
     (async () => {
@@ -23,7 +23,7 @@ export default function MyRequest() {
   }, []);
 
   const { insurances } = useSelector((state) => state.reducerInsurance);
-  console.log('insurances', insurances);
+  // console.log('insurances', insurances);
   useEffect(() => {
     const myReq = insurances.filter((el) => String(el.user_id) === localStorage.getItem('_id'));
     setMyRequest(myReq);
@@ -33,12 +33,22 @@ export default function MyRequest() {
     return policyNumber ? policyNumber : 'Belum Terbit';
   };
 
+  const handleRequest = () => {
+    history.push('/polis/request');
+  };
+
   return (
     <div className="flex flex-col mt-70">
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
           <div className="shadow overflow-hidden mt-10 mx-10 border-b border-gray-200 sm:rounded-lg">
-            <table className="min-w-full divide-y divide-gray-200">
+            <button
+              onClick={() => handleRequest()}
+              // type="submit"
+              className="rounded float-right my-2 rounded-md text-gray-100 mx-2 px-3 py-1 bg-blue-500 hover:shadow-inner focus:outline-none hover:bg-blue-700 transition-all duration-300">
+              <span>REQUEST NEW POLIS</span>
+            </button>
+            <table className="min-w-full divide-y mt-3 divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
                   {tableHead.map((el, i) => (

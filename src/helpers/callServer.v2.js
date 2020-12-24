@@ -22,6 +22,7 @@ export default function callServerV2(option) {
 
   return async (dispatch) => {
     try {
+      console.log(payloadAxios, option.stage);
       dispatch({ type: option.type + '_LOADING', payload: true });
       const { data } = await axios(payloadAxios);
       console.log('Data From Axios: ' + option.stage, data);

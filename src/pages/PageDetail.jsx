@@ -5,6 +5,7 @@ import LabelDetail from '../components/labelDetail';
 // import DropDownMenu from './dropdown';
 import RadioButton from '../components/radioButton';
 import callServerV2 from '../helpers/callServer.v2';
+import { formatter } from '../helpers/formatIDR';
 
 export default function PageDetail() {
   const dispatch = useDispatch();
@@ -22,11 +23,14 @@ export default function PageDetail() {
         }),
       );
     })();
+    // return () => {
+    //   dispatch({ type: ''})
+    // }
   }, []);
 
-  const { insurance, loading } = useSelector((state) => state.reducerInsurance);
+  const { insurance, stage, loading } = useSelector((state) => state.reducerInsurance);
 
-  const newInsurance = insurance && insurance[0];
+  const newInsurance = insurance ? insurance[0] : null;
   console.log('insurance Page Detail', insurance);
 
   const hanldeClick = (path) => {
@@ -42,7 +46,7 @@ export default function PageDetail() {
     return 'Selain Konstruksi Kelas I dan Kelas II';
   };
 
-  if (!insurance || insurance.length < 1) return null;
+  if (stage !== 'getInsurance' || !newInsurance || !insurance || insurance.length < 1) return null;
 
   return (
     <>
@@ -60,7 +64,10 @@ export default function PageDetail() {
                   value={newInsurance.period + ' Tahun'}
                 />
                 <LabelDetail title="Okupasi" value={newInsurance.occupation.type} />
-                <LabelDetail title="Harga Bangunan" value={'IDR ' + newInsurance.price_object} />
+                <LabelDetail
+                  title="Harga Bangunan"
+                  value={formatter.format(Number(newInsurance.price_object))}
+                />
               </div>
               <div className="rows gap-6">
                 <LabelDetail

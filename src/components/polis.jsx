@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import callServerV2 from '../helpers/callServer.v2';
+import { formatter } from '../helpers/formatIDR';
 
 export default function Polis() {
   const tableHead = ['Nomor Invoice', 'Alamat', 'Tipe Okupasi', 'Total yang dibayar', ''];
   const dispatch = useDispatch();
-  const [myRequest, setMyRequest] = useState([]);
   // const history = useHistory();
   // console.log(history);
+  const { insurances, stage } = useSelector((state) => state.reducerInsurance);
   useEffect(() => {
     (async () => {
       dispatch(
@@ -20,17 +21,35 @@ export default function Polis() {
         }),
       );
     })();
-  }, []);
+  }, [stage]);
 
-  const { insurances } = useSelector((state) => state.reducerInsurance);
   console.log('insurances', insurances);
-  useEffect(() => {
-    const myReq = insurances;
-    setMyRequest(myReq);
-  }, [insurances]);
+  useEffect(() => {}, [insurances]);
 
   const checkPolicy = (policyNumber) => {
     return policyNumber ? policyNumber : 'Belum Terbit';
+  };
+
+  const getTotal = (num1, num2) => {
+    const total = Number(num1) + Number(num2);
+    return formatter.format(total);
+  };
+
+  const handleApprove = (id, is_approved) => {
+    (async () => {
+      dispatch(
+        callServerV2({
+          url: 'insurance/approve/' + id,
+          stage: 'rejectInsurance',
+          method: 'PUT',
+          data: {
+            is_approved: is_approved,
+          },
+          headers: true,
+          type: 'SET_INSURANCE',
+        }),
+      );
+    })();
   };
 
   return (
@@ -52,7 +71,7 @@ export default function Polis() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {myRequest.length < 1 ? (
+                {insurances.length < 1 ? (
                   <tr>
                     <td
                       colSpan="5"
@@ -79,29 +98,30 @@ export default function Polis() {
                         {el.occupation.type}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {Number(el.invoice.base_premi) + Number(el.occupation.admin_fee)}
+                        {getTotal(el.invoice.base_premi, el.occupation.admin_fee)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span className="inline-flex mx-2 text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                           <NavLink
                             to={`/polis/${el._id}`}
-                            className="block px-3 py-2 rounded-full text-base font-medium text-black hover:text-white hover:bg-gray-700">
+                            className="block px-3 py-1 rounded-full text-base font-medium text-black hover:text-white hover:bg-gray-700">
                             Lihat Rincian
                           </NavLink>
                         </span>
                         <span className="inline-flex mx-2 text-xs leading-5 font-semibold rounded-full bg-blue-500 text-green-800">
-                          <NavLink
-                            to={`/polis/${el._id}`}
-                            className="block px-3 py-2 rounded-full text-base font-medium text-white hover:text-white hover:bg-blue-400">
-                            Approve
-                          </NavLink>
+                          <button
+                            disabled={el.is_approved}
+                            onClick={() => handleApprove(el._id, true)}
+                            className="block focus:outline-none px-3 py-1 rounded-full text-base font-medium text-white hover:text-white hover:bg-blue-400">
+                            {el.is_approved ? 'Aproved' : 'Aprove'}
+                          </button>
                         </span>
                         <span className="inline-flex mx-2 text-xs leading-5 font-semibold rounded-full bg-red-500 text-green-800">
-                          <NavLink
-                            to={`/polis/${el._id}`}
-                            className="block px-3 py-2 rounded-full text-base font-medium text-black hover:text-white hover:bg-red-400">
+                          <button
+                            onClick={() => handleApprove(el._id, false)}
+                            className="block focus:outline-none px-3 py-1 rounded-full text-base font-medium text-black hover:text-white hover:bg-red-400">
                             Reject
-                          </NavLink>
+                          </button>
                         </span>
                       </td>
                     </tr>

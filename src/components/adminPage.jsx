@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { NavLink } from 'react-router-dom';
 import callServerV2 from '../helpers/callServer.v2';
+import { formatter } from '../helpers/formatIDR';
 import InputType from './inputType';
 
 export default function AdminPage() {
@@ -195,7 +196,7 @@ export default function AdminPage() {
                       <span>{el.rate}</span>
                     </td>
                     <td className="py-2 px-5">
-                      <span>{el.admin_fee}</span>
+                      <span>{formatter.format(Number(el.admin_fee))}</span>
                     </td>
                     <td className="py-2 px-5">
                       <span>

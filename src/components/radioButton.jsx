@@ -10,7 +10,7 @@ export default function RadioButton(props) {
           onChange={(e) => OnChange(e)}
           name={name}
           value={value}
-          checked={checked || false}
+          checked={checked}
           type="radio"
           className="form-radio h-5 w-5 text-gray-600"
           required

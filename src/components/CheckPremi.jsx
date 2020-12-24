@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import callServerV2 from '../helpers/callServer.v2';
+import { formatter } from '../helpers/formatIDR';
 
 export default function Table() {
   const tableHead = ['Premi Terbaik', 'Periode', 'Perluasan', 'Harga Bangunan'];
@@ -13,7 +14,7 @@ export default function Table() {
   useEffect(() => {
     if (request) {
       if (stage === 'submitRequest') {
-        history.push('/polis/my-request');
+        history.push('/polis');
         console.log('Request submited');
       }
     }
@@ -38,6 +39,11 @@ export default function Table() {
         type: 'REQUEST_INSURANCE',
       }),
     );
+  };
+
+  const getTotal = (num1, num2) => {
+    const total = Number(num1) + Number(num2);
+    return formatter.format(total);
   };
 
   return (
@@ -105,7 +111,7 @@ export default function Table() {
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        IDR {insurance.price_object}
+                        {formatter.format(Number(insurance.price_object))}
                       </td>
                     </tr>
                     <tr>
@@ -113,7 +119,8 @@ export default function Table() {
 
                       <td className="px-6 py-4 text-right whitespace-nowrap"></td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-500">
-                        Premi Dasar : {insurance.base_premi}
+                        {/* Premi Dasar : {insurance.base_premi} */}
+                        {formatter.format(Number(insurance.base_premi))}
                       </td>
                     </tr>
                     <tr>
@@ -121,7 +128,7 @@ export default function Table() {
                       <td
                         colSpan="2"
                         className="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-500">
-                        Biaya Administrasi : IDR {insurance.admin_fee}
+                        Biaya Administrasi :{formatter.format(Number(insurance.admin_fee))}
                       </td>
                     </tr>
                     <tr>
@@ -129,7 +136,7 @@ export default function Table() {
                       <td
                         colSpan="2"
                         className="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-500">
-                        Total: IDR {Number(insurance.base_premi) + Number(insurance.admin_fee)}
+                        Total: {getTotal(insurance.base_premi, insurance.admin_fee)}
                       </td>
                     </tr>
                     <tr>

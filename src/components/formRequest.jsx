@@ -51,7 +51,7 @@ export default function FormRequest() {
   const { occupations, loading: loadingOccupation, error: errorOccupation } = useSelector(
     (state) => state.reducerOccupation,
   );
-  const { insurance, loading: loadingInsurance, error: errorInsurance } = useSelector(
+  const { insurance, loading: loadingInsurance, error: errorInsurance, stage } = useSelector(
     (state) => state.reducerInsurance,
   );
   const loading = loadingOccupation || loadingInsurance;
@@ -70,8 +70,10 @@ export default function FormRequest() {
 
   useEffect(() => {
     if (insurance) {
-      console.log('result', insurance);
-      history.push('/polis/check');
+      if (stage === 'checkPremi') {
+        console.log('result', insurance);
+        history.push('/polis/check');
+      }
     }
   }, [insurance]);
 
@@ -156,6 +158,7 @@ export default function FormRequest() {
                   title="Harga Bangunan"
                   name="price_object"
                   type="number"
+                  value={payload.price_object}
                   placeholder="Harga Bangunan"
                 />
               </div>
@@ -171,6 +174,7 @@ export default function FormRequest() {
                   title="Provinsi"
                   name="province"
                   type="text"
+                  value={payload.province}
                   placeholder="Provinsi"
                 />
                 <div className="grid grid-cols-2 gap-3">
@@ -179,6 +183,7 @@ export default function FormRequest() {
                     title="Kota/Kabupaten"
                     name="city"
                     type="text"
+                    value={payload.city}
                     placeholder="Kota/Kabupaten"
                   />
                   <InputType
@@ -186,6 +191,7 @@ export default function FormRequest() {
                     title="Daerah"
                     name="area"
                     type="text"
+                    value={payload.area}
                     placeholder="Daerah"
                   />
                 </div>
@@ -245,7 +251,7 @@ export default function FormRequest() {
               <span>{loading ? 'Processing' : 'Cek Premi'}</span>
             </button>
             <button
-              onClick={() => hanldeClick('/')}
+              onClick={() => hanldeClick('/polis')}
               type="reset"
               disabled={loading}
               className="rounded ml-3 text-gray-100 px-3 py-1 bg-gray-500 hover:shadow-inner focus:outline-none hover:bg-gray-700 transition-all duration-300">

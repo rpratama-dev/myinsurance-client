@@ -7,8 +7,9 @@ import PageLogin from './pages/PageLogin';
 import PageDetail from './pages/PageDetail';
 import PageHome from './pages/PageHome';
 import FormRequest from './components/formRequest';
-import Table from './components/table';
+import Table from './components/CheckPremi';
 import PagePolis from './pages/PagePolis';
+import { Switch } from 'react-router-dom';
 // import PageNotFound from './pages/404';
 
 const getIsLoggedIn = () => {
@@ -48,12 +49,19 @@ function App() {
         <GuardProvider guards={[requireLogin]}>
           <Navbar />
           {/* <GuardedRoute path="/" exact component={PageHome} meta={{ auth: true }} /> */}
-          <GuardedRoute path="/polis/request" component={FormRequest} meta={{ auth: true }} />
-          <GuardedRoute path="/polis/check" component={Table} meta={{ auth: true }} />
-          <GuardedRoute path="/polis/:id" component={PageDetail} meta={{ auth: true }} />
-          <GuardedRoute path="/polis" exact component={PagePolis} meta={{ auth: true }} />
-          <GuardedRoute path="/login" exact component={PageLogin} meta={{ auth: true }} />
-          <GuardedRoute path="/" exact component={PageHome} meta={{ auth: true }} />
+          <Switch>
+            <GuardedRoute
+              path="/polis/request"
+              exact
+              component={FormRequest}
+              meta={{ auth: true }}
+            />
+            <GuardedRoute path="/polis/check" exact component={Table} meta={{ auth: true }} />
+            <GuardedRoute path="/polis/:id" exact component={PageDetail} meta={{ auth: true }} />
+            <GuardedRoute path="/polis" exact component={PagePolis} meta={{ auth: true }} />
+            <GuardedRoute path="/login" exact component={PageLogin} meta={{ auth: true }} />
+            <GuardedRoute path="/" exact component={PageHome} meta={{ auth: true }} />
+          </Switch>
           {/* <GuardedRoute path="*" component={PageNotFound} meta={{ auth: false }} /> */}
         </GuardProvider>
       </Provider>
