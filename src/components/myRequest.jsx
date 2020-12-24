@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import callServerV2 from '../helpers/callServer.v2';
@@ -6,6 +6,7 @@ import callServerV2 from '../helpers/callServer.v2';
 export default function MyRequest() {
   const tableHead = ['Nomor Polis', 'Jenis Penanggungan', 'Nomor Invoice', 'Status', ''];
   const dispatch = useDispatch();
+  const [myRequest, setMyRequest] = useState([]);
   // const history = useHistory();
   // console.log(history);
   useEffect(() => {
@@ -24,8 +25,8 @@ export default function MyRequest() {
   const { insurances } = useSelector((state) => state.reducerInsurance);
   console.log('insurances', insurances);
   useEffect(() => {
-    // if (stage === 'getAllInsurance') {
-    // }
+    const myReq = insurances.filter((el) => String(el.user_id) === localStorage.getItem('_id'));
+    setMyRequest(myReq);
   }, [insurances]);
 
   const checkPolicy = (policyNumber) => {
@@ -51,7 +52,7 @@ export default function MyRequest() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {insurances.length < 1 ? (
+                {myRequest.length < 1 ? (
                   <tr>
                     <td
                       colSpan="4"
@@ -60,7 +61,7 @@ export default function MyRequest() {
                     </td>
                   </tr>
                 ) : (
-                  insurances.map((el) => (
+                  myRequest.map((el) => (
                     <>
                       <tr>
                         <td className="px-6 py-4 whitespace-nowrap">
@@ -84,7 +85,7 @@ export default function MyRequest() {
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span className="inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                             <NavLink
-                              to="/polis/request"
+                              to={`/polis/${el._id}`}
                               className="block px-3 py-2 rounded-full text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
                               Lihat Rincian
                             </NavLink>

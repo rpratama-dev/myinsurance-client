@@ -201,21 +201,21 @@ export default function FormRequest() {
                   title="Kelas I"
                   description="Dinding, Lantai dan Semua Komponen Penunjang strukturalnya serta penutup atap terbuat seluruhnya dan sepenuhnya dari bahan-bahan yang tidak mudah terbakar"
                   name="construction"
-                  value="kelas-1"
+                  value="kelas-I"
                 />
                 <RadioButton
                   OnChange={handleForm}
                   title="Kelas II"
                   description="Penutup atap terbuat dari sirap kayu keras, dinding-dinding mengandung bahan-bahan yang dappat terbakar sampai maksimum 20% dari luas dinding, lantai dan struktur-struktur penunjangnya terbuat dari kayu"
                   name="construction"
-                  value="kelas-2"
+                  value="kelas-II"
                 />
                 <RadioButton
                   OnChange={handleForm}
                   title="Kelas III"
                   description="Selain Konstruksi Kelas I dan Kelas II"
                   name="construction"
-                  value="kelas-3"
+                  value="kelas-III"
                 />
               </div>
               <div className="rows gap-3">

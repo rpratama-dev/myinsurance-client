@@ -4,6 +4,7 @@ import store from './store/index';
 import { GuardProvider, GuardedRoute } from 'react-router-guards';
 import Navbar from './components/navbar';
 import PageLogin from './pages/PageLogin';
+import PageDetail from './pages/PageDetail';
 import PageHome from './pages/PageHome';
 import FormRequest from './components/formRequest';
 import Table from './components/table';
@@ -41,6 +42,7 @@ function App() {
           <GuardedRoute path="/polis/request" component={FormRequest} meta={{ auth: true }} />
           <GuardedRoute path="/polis/check" component={Table} meta={{ auth: true }} />
           <GuardedRoute path="/polis/my-request" component={MyRequest} meta={{ auth: true }} />
+          <GuardedRoute path="/polis/:id" component={PageDetail} meta={{ auth: true }} />
           <GuardedRoute path="/login" exact component={PageLogin} meta={{ auth: true }} />
           <GuardedRoute path="/" exact component={PageHome} meta={{ auth: true }} />
           {/* <GuardedRoute path="*" component={PageNotFound} meta={{ auth: false }} /> */}
