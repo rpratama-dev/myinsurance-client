@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useHistory } from 'react-router-dom';
-import Logo from '../logo.svg';
+import Logo from '../assets/images/logo.png';
 import Avatar from '../assets/images/avatar.png';
 // import { actionSetLogin } from '../store/actions';
 
