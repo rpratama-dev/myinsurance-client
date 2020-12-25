@@ -10,7 +10,7 @@ import FormRequest from './components/formRequest';
 import Table from './components/CheckPremi';
 import PagePolis from './pages/PagePolis';
 import { Switch } from 'react-router-dom';
-// import PageNotFound from './pages/404';
+import PageNotFound from './pages/404';
 
 const getIsLoggedIn = () => {
   const token = localStorage.getItem('access_token');
@@ -61,8 +61,8 @@ function App() {
             <GuardedRoute path="/polis" exact component={PagePolis} meta={{ auth: true }} />
             <GuardedRoute path="/login" exact component={PageLogin} meta={{ auth: true }} />
             <GuardedRoute path="/" exact component={PageHome} meta={{ auth: true }} />
+            <GuardedRoute path="*" component={PageNotFound} meta={{ auth: false }} />
           </Switch>
-          {/* <GuardedRoute path="*" component={PageNotFound} meta={{ auth: false }} /> */}
         </GuardProvider>
       </Provider>
     </>
